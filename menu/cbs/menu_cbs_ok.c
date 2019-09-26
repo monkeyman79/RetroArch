@@ -319,44 +319,6 @@ static const char *get_default_shader_dir(void)
    settings_t *settings       = config_get_ptr();
    const char *def_shader_dir = settings->paths.directory_video_shader;
    return def_shader_dir;
-#if 0
-   bool slang_supported       = video_shader_is_supported(RARCH_SHADER_SLANG);
-   bool glsl_supported        = video_shader_is_supported(RARCH_SHADER_GLSL);
-   bool cg_supported          = video_shader_is_supported(RARCH_SHADER_CG);
-
-   if (slang_supported)
-   {
-      static char new_path[1024];
-      new_path[0] = '\0';
-      fill_pathname_join(new_path,
-            def_shader_dir, "shaders_slang",
-            sizeof(new_path));
-      if (path_is_directory(new_path))
-         return new_path;
-   }
-   else if (glsl_supported && !cg_supported)
-   {
-      static char new_path[1024];
-      new_path[0] = '\0';
-      fill_pathname_join(new_path,
-            def_shader_dir, "shaders_glsl",
-            sizeof(new_path));
-      if (path_is_directory(new_path))
-         return new_path;
-   }
-   else if (cg_supported   && !glsl_supported)
-   {
-      static char new_path[1024];
-      new_path[0] = '\0';
-      fill_pathname_join(new_path,
-            def_shader_dir, "shaders_cg",
-            sizeof(new_path));
-      if (path_is_directory(new_path))
-         return new_path;
-   }
-
-   return def_shader_dir;
-#endif
 }
 #endif
 
@@ -3261,7 +3223,7 @@ int action_ok_core_option_dropdown_list(const char *path,
 
    generic_action_ok_displaylist_push(
          core_option_lbl, NULL,
-         core_option_idx, 0, 0, 0,
+         core_option_idx, 0, idx, 0,
          ACTION_OK_DL_DROPDOWN_BOX_LIST);
    return 0;
 }
@@ -4236,7 +4198,7 @@ static int action_ok_set_core_association(const char *path,
       return menu_cbs_exit();
 
    return generic_action_ok_displaylist_push(path, NULL,
-         NULL, 0, menu->rpl_entry_selection_ptr, entry_idx,
+         NULL, 0, idx, entry_idx,
          ACTION_OK_DL_DEFERRED_CORE_LIST_SET);
 }
 
@@ -5739,7 +5701,7 @@ static int action_ok_video_resolution(const char *path,
 #else
    generic_action_ok_displaylist_push(
          NULL,
-         NULL, NULL, 0, 0, 0,
+         NULL, NULL, 0, idx, 0,
          ACTION_OK_DL_DROPDOWN_BOX_LIST_RESOLUTION);
 #endif
 
@@ -5751,7 +5713,7 @@ static int action_ok_playlist_default_core(const char *path,
 {
    generic_action_ok_displaylist_push(
          NULL,
-         NULL, NULL, 0, 0, 0,
+         NULL, NULL, 0, idx, 0,
          ACTION_OK_DL_DROPDOWN_BOX_LIST_PLAYLIST_DEFAULT_CORE);
    return 0;
 }
@@ -5761,7 +5723,7 @@ static int action_ok_playlist_label_display_mode(const char *path,
 {
    generic_action_ok_displaylist_push(
          NULL,
-         NULL, NULL, 0, 0, 0,
+         NULL, NULL, 0, idx, 0,
          ACTION_OK_DL_DROPDOWN_BOX_LIST_PLAYLIST_LABEL_DISPLAY_MODE);
    return 0;
 }
@@ -5771,7 +5733,7 @@ static int action_ok_playlist_right_thumbnail_mode(const char *path,
 {
    generic_action_ok_displaylist_push(
          NULL,
-         NULL, NULL, 0, 0, 0,
+         NULL, NULL, 0, idx, 0,
          ACTION_OK_DL_DROPDOWN_BOX_LIST_PLAYLIST_RIGHT_THUMBNAIL_MODE);
    return 0;
 }
@@ -5781,7 +5743,7 @@ static int action_ok_playlist_left_thumbnail_mode(const char *path,
 {
    generic_action_ok_displaylist_push(
          NULL,
-         NULL, NULL, 0, 0, 0,
+         NULL, NULL, 0, idx, 0,
          ACTION_OK_DL_DROPDOWN_BOX_LIST_PLAYLIST_LEFT_THUMBNAIL_MODE);
    return 0;
 }

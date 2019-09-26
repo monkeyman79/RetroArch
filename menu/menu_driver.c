@@ -1129,8 +1129,6 @@ int menu_entries_get_title(char *s, size_t len)
    if (!cbs)
       return -1;
 
-   menu_entries_get_last_stack(&path, &label, &menu_type, NULL, NULL);
-
    if (cbs && cbs->action_get_title)
    {
       int ret;
@@ -1139,6 +1137,7 @@ int menu_entries_get_title(char *s, size_t len)
          strlcpy(s, cbs->action_title_cache, len);
          return 0;
       }
+      menu_entries_get_last_stack(&path, &label, &menu_type, NULL, NULL);
       ret = cbs->action_get_title(path, label, menu_type, s, len);
       if (ret == 1)
          strlcpy(cbs->action_title_cache, s, sizeof(cbs->action_title_cache));
@@ -1155,32 +1154,28 @@ int menu_entries_get_core_title(char *s, size_t len)
    const char *core_name               = (system && !string_is_empty(system->library_name)) ? system->library_name    : msg_hash_to_str(MENU_ENUM_LABEL_VALUE_NO_CORE);
    const char *core_version            = (system && system->library_version) ? system->library_version : "";
 #if _MSC_VER == 1200
-   const char *extra_version           = " msvc6";
+   strlcpy(s, PACKAGE_VERSION " msvc6" " - ", len);
 #elif _MSC_VER == 1300
-   const char *extra_version           = " msvc2002";
+   strlcpy(s, PACKAGE_VERSION " msvc2002" " - ", len);
 #elif _MSC_VER == 1310
-   const char *extra_version           = " msvc2003";
+   strlcpy(s, PACKAGE_VERSION " msvc2003" " - ", len);
 #elif _MSC_VER == 1400
-   const char *extra_version           = " msvc2005";
+   strlcpy(s, PACKAGE_VERSION " msvc2005" " - ", len);
 #elif _MSC_VER == 1500
-   const char *extra_version           = " msvc2008";
+   strlcpy(s, PACKAGE_VERSION " msvc2008" " - ", len);
 #elif _MSC_VER == 1600
-   const char *extra_version           = " msvc2010";
+   strlcpy(s, PACKAGE_VERSION " msvc2010" " - ", len);
 #elif _MSC_VER == 1700
-   const char *extra_version           = " msvc2012";
+   strlcpy(s, PACKAGE_VERSION " msvc2012" " - ", len);
 #elif _MSC_VER == 1800
-   const char *extra_version           = " msvc2013";
+   strlcpy(s, PACKAGE_VERSION " msvc2013" " - ", len);
 #elif _MSC_VER == 1900
-   const char *extra_version           = " msvc2015";
+   strlcpy(s, PACKAGE_VERSION " msvc2015" " - ", len);
 #elif _MSC_VER >= 1910 && _MSC_VER < 2000
-   const char *extra_version           = " msvc2017";
+   strlcpy(s, PACKAGE_VERSION " msvc2017" " - ", len);
 #else
-   const char *extra_version           = "";
+   strlcpy(s, PACKAGE_VERSION " - ", len);
 #endif
-   strlcpy(s, PACKAGE_VERSION, len);
-   if (!string_is_empty(extra_version))
-      strlcat(s, extra_version, len);
-   strlcat(s, " - ", len);
    strlcat(s, core_name, len);
    if (!string_is_empty(core_version))
    {
@@ -1350,7 +1345,8 @@ bool menu_entries_append_enum(file_list_t *list, const char *path,
    return true;
 }
 
-void menu_entries_prepend(file_list_t *list, const char *path, const char *label,
+void menu_entries_prepend(file_list_t *list,
+      const char *path, const char *label,
       enum msg_hash_enums enum_idx,
       unsigned type, size_t directory_ptr, size_t entry_idx)
 {

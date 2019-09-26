@@ -297,12 +297,7 @@
 
 #if defined(__CELLOS_LV2) || defined(_XBOX360)
 #define DEFAULT_ASPECT_RATIO_IDX ASPECT_RATIO_16_9
-#elif defined(PSP)
-#define DEFAULT_ASPECT_RATIO_IDX ASPECT_RATIO_CORE
-#elif defined(_3DS)
-/* Previously defaulted to ASPECT_RATIO_4_3.
- * Non-4:3 content looks dreadful when stretched
- * to 4:3 on the 3DS screen... */
+#elif defined(PSP) || defined(_3DS) || defined(HAVE_LIBNX) || defined(VITA)
 #define DEFAULT_ASPECT_RATIO_IDX ASPECT_RATIO_CORE
 #elif defined(RARCH_CONSOLE)
 #define DEFAULT_ASPECT_RATIO_IDX ASPECT_RATIO_4_3
@@ -339,6 +334,7 @@
 #ifdef HAVE_OZONE
 #define DEFAULT_OZONE_COLLAPSE_SIDEBAR false
 #define DEFAULT_OZONE_TRUNCATE_PLAYLIST_NAME true
+#define DEFAULT_OZONE_SCROLL_CONTENT_METADATA false
 #endif
 
 #define DEFAULT_SETTINGS_SHOW_DRIVERS true

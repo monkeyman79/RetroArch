@@ -1,4 +1,4 @@
-# Future
+# Future (1.7.9)
 - AI SERVICE: Image mode is now much faster, it now saves the image in-memory in PNG format then passes it along to the translation service
 - BUGFIX: Touch input - When using an overlay to toggle the quick menu on touchscreen devices, we no longer get 'phantom' menu input - i.e. the old bug of hitting the toggle and instantly resuming content (or performing a save state) is fixed
 - BUGFIX: Networking - RetroArch crashed when pressing left while Relay Server Location entry was selected 
@@ -12,10 +12,15 @@ operation had run
 - MENU/ONSCREEN KEYBOARD: On-screen keyboard entry via mouse/touchscreen has been tidied up - no more double inputs (or unwanted menu interaction in the background)
 - MENU/MOUSE: Mouse wheel up/down is now a proper 'up/down', same as using cursor keys or a dpad
 - MENU/MOUSE: Mouse wheel tilt left/right has been wired up to normal 'left/right' commands. Also further improved mouse wheel tilt
+- MENU/OZONE: Add option to toggle between static and scrolling content metadata 
 - MENU/OSX: Fixed mouse buttons - mouse down events were not hooked up
+- MENU: When navigating backwards from a core options drop-down list (i.e. pressing select or cancel), the last menu position is remembered (instead of resetting back to the first core option item each time)
 - OSD: Memory details should now be available on every platform (get_mem_total and get_mem_free need to be implemented in the frontend driver for it to work)
 - OSD: Memory details can now be shown individually without FPS and frame count
 - OSX/METAL: CoreAudio V3 driver should now be the default audio driver on first startup
+- SWITCH: Set default aspect ratio to core provided instead of 4:3
+- THREADED VIDEO: Fix FPS text in threaded video mode
+- VITA: Set default aspect ratio to core provided instead of 4:3
 - WIN32: Log window now has title 'Logging Console'
 - WII: Add Wiimote lightgun support
 
